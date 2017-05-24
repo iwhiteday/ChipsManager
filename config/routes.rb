@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   root 'chips#index'
 
-  resources :chips
+  resource :chips
 end

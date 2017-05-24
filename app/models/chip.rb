@@ -1,16 +1,15 @@
 class Chip < ApplicationRecord
 
-def self.convert_from_money(amount)
-  chips = Chip.where('count > 0').to_a
-  values = chips.pluck(:value)
-  counts = chips.map { |c| [c.value, c.count] }.to_h
-  result = chips.map { |c| [c.value, 0] }.to_h
-  if values.include?(amount)
-    amount
-  else
-    result = try_optimal(values, amount, counts, result)
+def self.convert_from_money(currency)
+  ActiveRecord::Base.transaction do
+    chips = Chip.where('count > 0').to_a
+    values = chips.pluck(:value)
+    counts = chips.map { |c| [c.value, c.count] }.to_h
+    result = chips.map { |c| [c.value, 0] }.to_h
+    result = try_optimal(values, currency.amount, counts, result)
+    balance_the_balance(result, currency) unless result.nil?
+    result
   end
-  result
 end
 
 class << self
@@ -46,6 +45,7 @@ class << self
     default_result = result.clone
     result = optimal(values, amount, result)
     unless result_possible?(result, counts)
+      #TODO: посчитать остаток который не получается добрать оптималкой и добрать его жадюгой
       result = default_result
       result = greedy(values, amount, counts, result, values.length - 1)
     end
@@ -55,6 +55,18 @@ class << self
   private def result_possible?(result, counts)
     subtraction = result.zip(counts).map { |x,y| y.last - x.last }
     subtraction.min >= 0
+  end
+
+  def balance_the_balance(chips, currency)
+    balance = Balance.find_by(currency: currency.currency)
+    balance.amount += currency.amount
+    balance.save
+    Chip.all.each do |x|
+      unless chips[x.value].nil?
+        x.count -= chips[x.value].to_i
+        x.save
+      end
+    end
   end
 end
 

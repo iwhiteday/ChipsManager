@@ -8,6 +8,10 @@
   padding: 15px;
 }
 
+.chip > input {
+  width: 30px;
+}
+
 .chip-value {
   display: flex;
   width: 50px;
@@ -18,4 +22,22 @@
 
 .chip-value h3 {
   margin: auto;
+}
+
+input {
+  margin: 10px 5px;
+  padding: 10px;
+  border: 2px solid #23ba00;
+  color: #23ba00;
+  background-color: black;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
 }

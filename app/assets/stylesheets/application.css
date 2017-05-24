@@ -57,5 +57,5 @@ nav li a {
 
 nav li a:hover {
     color: white;
-    border: 1px dashed white;
+    border: 1px solid white;
 }

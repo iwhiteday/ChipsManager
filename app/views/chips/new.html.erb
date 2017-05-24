@@ -1,0 +1,13 @@
+<%= form_tag chips_path, method: :post do %>
+  <div class="chips">
+    <% @chips.each do |value| %>
+      <div class="chip">
+        <div class="chip-value">
+          <h3><%= value %></h3>
+        </div>
+        <%= number_field_tag 'chips[' + value.to_s + ']', 0 %>
+      </div>
+    <% end %>
+  </div>
+  <%= submit_tag %>
+<% end %>
