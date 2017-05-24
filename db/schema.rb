@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524064930) do
+ActiveRecord::Schema.define(version: 20170524110217) do
+
+  create_table "balances", force: :cascade do |t|
+    t.string "currency"
+    t.decimal "amount", precision: 8, scale: 2
+  end
 
   create_table "chips", force: :cascade do |t|
     t.integer "value"

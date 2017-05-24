@@ -1,0 +1,20 @@
+<h2>Welcome</h2>
+<h4>Current balance: </h4>
+
+<h3>Chips:</h3>
+<div class="chips">
+  <% @chips.each do |chip| %>
+      <div class="chip">
+        <div class="chip-value">
+          <h3><%= chip.value %></h3>
+        </div>
+        <p>x<%= chip.count %></p>
+      </div>
+  <% end %>
+</div>
+
+Balance:
+<% @currency.each do |currency| %>
+    <p>Currency: <%= currency.currency.upcase %></p>
+    <p>Amount: <%= number_to_currency(currency.amount, currency: currency.currency) %></p>
+<% end %>
