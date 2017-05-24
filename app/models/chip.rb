@@ -63,7 +63,7 @@ class << self
     balance.save
     Chip.all.each do |x|
       unless chips[x.value].nil?
-        x.count -= chips[x.value].to_i
+        x.count -= chips[x.value]
         x.save
       end
     end

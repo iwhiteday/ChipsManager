@@ -1,0 +1,151 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@font-face {
+    font-family: 'FSEX300';
+    src:url('FSEX300.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    color: #23ba00;
+    background-color: black;
+    font-family: 'FSEX300';
+}
+
+.container {
+    margin: auto;
+    width: 1080px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    color: #23ba00;
+    display: block;
+    text-align: center;
+    padding: 16px 18px;
+    margin: 0 3px;
+    text-decoration: none;
+    border: 1px solid #23ba00;
+}
+
+nav li a:hover {
+    color: white;
+    border: 1px solid white;
+}
+
+
+///////////////////////////////terminallike inputs/////////////////////////////////////
+
+
+* {
+  box-sizing: border-box;
+}
+
+.consolelike {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 44px;
+  padding: 5px 70px 5px 5px;
+  width: 400px;
+  position: relative;
+  background-color: black;
+}
+
+.consolelike-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.js .consolelike-input {
+  position: absolute;
+  left: -100vw;
+}
+
+.fauxInput {
+  display: none;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 80%;
+  border: 0;
+  font-size: 20px;
+  font-size: 1.3rem;
+  color: #23ba00;
+  background-color: black;
+  border-right: 14px solid transparent;
+}
+
+.js .fauxInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.consolelike-input:focus ~ .fauxInput {
+  -webkit-animation: pulseAttention 1.5s cubic-bezier(.215, .61, .355, 1) forwards infinite;
+  animation: pulseAttention 1.5s cubic-bezier(.215, .61, .355, 1) forwards infinite;
+}
+
+.consolelike-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #23ba00;
+  font-size: 15px;
+}
+
+.consolelike-input:not([value=""]) ~ .consolelike-label {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+@-webkit-keyframes pulseAttention {
+  50% {
+    border-color: green;
+  }
+}
+
+@keyframes pulseAttention {
+  50% {
+    border-color: green;
+  }
+}
