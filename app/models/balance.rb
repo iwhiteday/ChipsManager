@@ -6,6 +6,7 @@ class Balance < ApplicationRecord
       chips.transform_values! { |x| -(x.to_i) }
       chips.transform_keys!(&:to_i)
       Chip.balance_the_balance(chips.to_unsafe_h, Balance.new(currency: balance, amount: -sum))
+      sum
     end
   end
 end

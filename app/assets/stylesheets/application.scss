@@ -74,9 +74,10 @@ nav li a:hover {
   display: flex;
   height: 44px;
   padding: 5px 70px 5px 5px;
-  width: 400px;
+  width: 200px;
   position: relative;
   background-color: black;
+  border-bottom: 1px solid green;
 }
 
 .consolelike-input {
@@ -85,7 +86,7 @@ nav li a:hover {
   appearance: none;
 }
 
-.js .consolelike-input {
+.consolelike-input {
   position: absolute;
   left: -100vw;
 }
@@ -104,7 +105,7 @@ nav li a:hover {
   border-right: 14px solid transparent;
 }
 
-.js .fauxInput {
+.fauxInput {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

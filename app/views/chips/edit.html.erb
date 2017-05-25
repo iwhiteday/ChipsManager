@@ -8,17 +8,5 @@
       <label class="consolelike-label" for="Input">Input amount</label>
     </div>
 
-    <script>
-        document.documentElement.setAttribute("class", "js");
 
-        var fauxInput = document.querySelector(".fauxInput");
-        var input = document.getElementById("Input");
-
-        input.addEventListener("input", function copyInput(event) {
-            fauxInput.textContent = input.value;
-            input.setAttribute("value", input.value);
-        }, false);
-
-        input.focus();
-    </script>
 <% end %>
