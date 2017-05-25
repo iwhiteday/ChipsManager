@@ -1,7 +1,37 @@
 require 'test_helper'
 
 class BalanceTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "should convert chips to balance" do
+    chips = ActionController::Parameters.new(   '100' => '0',
+                                                  '50' => '3',
+                                                  '25' => '0',
+                                                  '10' => '2',
+                                                  '5' => '14',
+                                                  '1' => '0')
+    result = Balance.exchange_chips(chips, 'usd')
+    assert_equal(240, result)
+  end
+
+  test "should convert 0 chips to 0" do
+    chips = ActionController::Parameters.new(   '100' => '0',
+                                                '50' => '0',
+                                                '25' => '0',
+                                                '10' => '0',
+                                                '5' => '0',
+                                                '1' => '0')
+    result = Balance.exchange_chips(chips, 'usd')
+    assert_equal(0, result)
+  end
+
+  test "should convert only values > 0 to chips" do
+    chips = ActionController::Parameters.new(   '100' => '0',
+                                                '50' => '-5',
+                                                '25' => '2',
+                                                '10' => '-3',
+                                                '5' => '0',
+                                                '1' => '0')
+    result = Balance.exchange_chips(chips, 'usd')
+    assert_equal(50, result)
+  end
 end

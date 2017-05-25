@@ -1,9 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+1:
   value: 1
-  count: 1
+  count: 25
 
-two:
-  value: 1
-  count: 1
+5:
+  value: 5
+  count: 25
+
+10:
+  value: 10
+  count: 25
+
+25:
+  value: 25
+  count: 25
+
+50:
+  value: 50
+  count: 25
+
+100:
+  value: 100
+  count: 25

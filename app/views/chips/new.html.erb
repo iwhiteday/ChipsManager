@@ -1,13 +1,21 @@
 <%= form_tag chips_path, method: :post do %>
-  <div class="chips">
-    <% @chips.each do |value| %>
-      <div class="chip">
-        <div class="chip-value">
-          <h3><%= value %></h3>
-        </div>
-        <%= number_field_tag 'chips[' + value.to_s + ']', 0 %>
-      </div>
-    <% end %>
-  </div>
-  <%= submit_tag %>
+    <div class="chips">
+      <% @chips.each do |value| %>
+          <div class="chip">
+            <div class="chip-value">
+              <h3><%= value %></h3>
+            </div>
+            <div class="consolelike">
+              <%= number_field_tag 'chips[' + value.to_s + ']', 0, class: 'consolelike-input' %>
+              <span class="fauxInput" dir="rtl"></span>
+              <%= label_tag('chips[' + value.to_s + ']', '   ', class: 'consolelike-label') %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <%= submit_tag %>
 <% end %>
+
+<div class="alert">
+  <%= image_tag 'idle.png' %>
+</div>

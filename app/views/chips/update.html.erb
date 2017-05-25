@@ -1,2 +1,11 @@
 <p><%= @chips %></p>
 <p><%= @msg %></p>
+
+<div class="alert">
+  <% if @chips.nil? %>
+      <%= image_tag 'fail.png' %>
+  <% else %>
+      <%= image_tag 'success.png' %>
+  <% end %>
+
+</div>
