@@ -1,1 +1,13 @@
-<%= @result %>
+<p><%= @msg %></p>
+<p><%= @result %></p>
+
+<div class="alert animated">
+  <p><%= @dude_msg %></p>
+  <%= image_tag 'dialog.png' %>
+  <% if @result.nil? %>
+      <%= image_tag 'fail.png' %>
+  <% else %>
+      <%= image_tag 'success.png' %>
+  <% end %>
+
+</div>

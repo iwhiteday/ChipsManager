@@ -1,7 +1,9 @@
 <p><%= @chips %></p>
 <p><%= @msg %></p>
 
-<div class="alert">
+<div class="alert animated">
+  <p><%= @dude_msg %></p>
+  <%= image_tag 'dialog.png' %>
   <% if @chips.nil? %>
       <%= image_tag 'fail.png' %>
   <% else %>

@@ -1,10 +1,13 @@
 <%= form_tag chips_path, method: :put do %>
     <%= label_tag :amount, 'Input currency in USD' %>
     <div class="consolelike">
-      <input id="amount" type="number" name="amount" class="consolelike-input" value="">
+      <input id="amount" type="number" name="amount" class="consolelike-input" value="" required>
       <span class="fauxInput" dir="rtl"></span>
       <label class="consolelike-label" for="amount">Input amount</label>
     </div>
+    <%= label_tag('add_without_converting') %>
+    <%= check_box_tag('add_without_converting') %>
+    <%= submit_tag %>
 <% end %>
 
 <div class="alert">

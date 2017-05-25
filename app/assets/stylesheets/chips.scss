@@ -50,7 +50,29 @@ input[type=number] {
   bottom: -20px;
 }
 
+.alert.animated {
+  animation: alert_appearance 1s cubic-bezier(.68,-0.55,.27,1.55) 0s
+}
+
+.alert p {
+  position: relative;
+  top: 55px;
+  left: 30px;
+  width: 240px;
+}
+
 .alert img {
   width: 100%;
   height: auto;
+}
+
+@keyframes alert_appearance {
+  from {
+    opacity: .3;
+    bottom: -300px;
+  }
+  to {
+    opacity: 1;
+    bottom: -20px;
+  }
 }

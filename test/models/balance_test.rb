@@ -34,4 +34,15 @@ class BalanceTest < ActiveSupport::TestCase
     result = Balance.exchange_chips(chips, 'usd')
     assert_equal(50, result)
   end
+
+  test "should not convert more than having on balance to chips" do
+    chips = ActionController::Parameters.new(   '100' => '80',
+                                                '50' => '80',
+                                                '25' => '5',
+                                                '10' => '5',
+                                                '5' => '5',
+                                                '1' => '3')
+    result = Balance.exchange_chips(chips, 'usd')
+    assert_nil(result)
+  end
 end
