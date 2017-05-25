@@ -3,27 +3,6 @@ class Chip < ApplicationRecord
 
   after_initialize :set_defaults
 
-  def self.convert_from_money(currency)
-  ActiveRecord::Base.transaction do
-    chips = Chip.where('count > 0').to_a
-    values = chips.pluck(:value)
-    counts = chips.map { |chip| [chip.value, chip.count] }.to_h
-    result = chips.map { |chip| [chip.value, 0] }.to_h
-    result = calculate_optimal(values, currency.amount, counts, result)
-    balance_the_balance(result, currency) unless result.nil?
-    result
-  end
-  end
-
-  def self.add(chips)
-    Chip.all.each do |chip|
-      unless chips[chip.value].nil?
-        chip.count -= chips[chip.value]
-        chip.save
-      end
-    end
-  end
-
   private
 
   def set_defaults
@@ -31,19 +10,38 @@ class Chip < ApplicationRecord
   end
 
   class << self
-    private def optimal_variant(values, amount, result)
-      while amount > 0
-        values.each do |value|
-          if amount >= value
-            amount -= value
-            result[value] += 1
-          end
-        end
+    def convert_from_money(currency)
+      ActiveRecord::Base.transaction do
+        raise ArgumentError, 'Amount < 0' if currency.amount < 0
+        chips = Chip.where('count > 0').to_a
+        values = chips.pluck(:value)
+        counts = chips.map { |chip| [chip.value, chip.count] }.to_h
+        result = chips.map { |chip| [chip.value, 0] }.to_h
+        result = calculate_optimal(values, currency.amount, counts, result)
+        balance_the_balance(result, currency) unless result.nil?
+        result
       end
-      result
     end
 
-    private def greedy_exchange(values, amount, counts, result, index)
+    def add(chips)
+      Chip.all.each do |chip|
+        unless chips[chip.value].nil?
+          chip.count -= chips[chip.value]
+          chip.save
+        end
+      end
+    end
+
+    def balance_the_balance(chips, currency)
+      balance = Balance.find_by(currency: currency.currency)
+      balance.amount += currency.amount
+      balance.save
+      add(chips)
+    end
+
+    private
+
+    def greedy_exchange(values, amount, counts, result, index)
       if amount.zero?
         result
       elsif index == -1
@@ -58,7 +56,20 @@ class Chip < ApplicationRecord
       end
     end
 
-    private def calculate_optimal(values, amount, counts, result)
+
+    def optimal_variant(values, amount, result)
+      while amount > 0
+        values.each do |value|
+          if amount >= value
+            amount -= value
+            result[value] += 1
+          end
+        end
+      end
+      result
+    end
+
+    def calculate_optimal(values, amount, counts, result)
       # might look stupid but i'll take it
       default_result = result.clone
       result = optimal_variant(values, amount, result)
@@ -69,16 +80,9 @@ class Chip < ApplicationRecord
       result
     end
 
-    private def result_possible?(result, counts)
+    def result_possible?(result, counts)
       subtraction = result.zip(counts).map { |result_item, counts_item| counts_item.last - result_item.last }
       subtraction.min >= 0
-    end
-
-    def balance_the_balance(chips, currency)
-      balance = Balance.find_by(currency: currency.currency)
-      balance.amount += currency.amount
-      balance.save
-      add(chips)
     end
   end
 

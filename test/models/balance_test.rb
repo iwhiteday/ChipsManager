@@ -24,15 +24,16 @@ class BalanceTest < ActiveSupport::TestCase
     assert_equal(0, result)
   end
 
-  test "should convert only values > 0 to chips" do
+  test "should raise ArgumentError with count < 0" do
     chips = ActionController::Parameters.new(   '100' => '0',
                                                 '50' => '-5',
                                                 '25' => '2',
                                                 '10' => '-3',
                                                 '5' => '0',
                                                 '1' => '0')
-    result = Balance.exchange_chips(chips, 'usd')
-    assert_equal(50, result)
+    assert_raises ArgumentError do
+      Balance.exchange_chips(chips, 'usd')
+    end
   end
 
   test "should not convert more than having on balance to chips" do

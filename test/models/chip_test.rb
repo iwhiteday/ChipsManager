@@ -18,10 +18,11 @@ class ChipTest < ActiveSupport::TestCase
     assert_equal({ 100 => 0, 50 => 0, 25 => 0, 10 => 0, 5 => 0, 1 => 0 }, result)
   end
 
-  test "should convert -1 to 0 chips" do
+  test "should raise ArgumentError with amount < 0" do
     currency = Balance.new(currency: 'usd', amount: -1)
-    result = Chip.convert_from_money currency
-    assert_equal({ 100 => 0, 50 => 0, 25 => 0, 10 => 0, 5 => 0, 1 => 0 }, result)
+    assert_raises ArgumentError do
+      Chip.convert_from_money currency
+    end
   end
 
   test "should not convert more than having on balance to chips" do
