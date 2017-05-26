@@ -1,0 +1,12 @@
+<%= form_tag add_without_converting_chips_path, method: :post do %>
+    <%= check_box_tag('balance_required') %>
+    <%= render "balance.form" %>
+
+    <%= check_box_tag('chips_required') %>
+    <%= render "chips.form" %>
+    <%= submit_tag %>
+<% end %>
+
+<div class="alert">
+  <%= image_tag 'idle.png' %>
+</div>

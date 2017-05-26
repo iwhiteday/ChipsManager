@@ -36,7 +36,7 @@ class BalanceTest < ActiveSupport::TestCase
     end
   end
 
-  test "should not convert more than having on balance to chips" do
+  test "should convert more than having on balance to nil" do
     chips = ActionController::Parameters.new(   '100' => '80',
                                                 '50' => '80',
                                                 '25' => '5',

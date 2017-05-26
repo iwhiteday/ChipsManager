@@ -25,7 +25,7 @@ class ChipTest < ActiveSupport::TestCase
     end
   end
 
-  test "should not convert more than having on balance to chips" do
+  test "should convert more than having on balance to nil" do
     currency = Balance.new(currency: 'usd', amount: 10000000)
     result = Chip.convert_from_money currency
     assert_nil(result)
